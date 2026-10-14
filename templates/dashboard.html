@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}System Dashboard - Threat Detection Suite{% endblock %}
+{% block content %}
+<div class="space-y-6 font-mono">
+    <!-- Welcome Banner -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+        <div class="flex items-center justify-between mb-2">
+            <span class="px-3 py-1 rounded bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs">Analyst Session Active</span>
+
+        </div>
+        <h2 class="text-xl font-bold text-slate-100">Welcome, {{ username }}</h2>
+        <p class="text-xs text-slate-400 mt-1">Intelligent Multi-Vector Defense Platform for Zero-Day Phishing & Obfuscated Threat Intelligence.</p>
+    </div>
+
+    <!-- Project Purpose & Architecture -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-3">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-cyan-400">Project Mission & Hybrid Methodology</h3>
+        <p class="text-xs text-slate-300 leading-relaxed">
+            Threat Detection Suite was engineered to overcome the limitations of traditional signature-based security filters. By combining supervised **Gradient Boosted Decision Trees (GBDT)** for predictive risk scoring with unsupervised **DBSCAN anomaly clustering**, the platform detects zero-day phishing kits, path-based brand spoofing, and polymorphic credential harvesting in real-time while maintaining strict analyst privacy through session isolation.
+        </p>
+    </div>
+
+    <!-- Tools Overview Grid -->
+    <div class="space-y-3">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Integrated Threat Detection Tools</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <!-- Tool 1: URL Scanner (Active) -->
+            <div class="bg-slate-900 border border-cyan-500/50 rounded-2xl p-5 shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-cyan-400">1) URL & Domain Engine</span>
+                        <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 text-[10px]">ACTIVE</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 mb-4">Lexical entropy calculation, DGA gibberish detection, Punycode homograph inspection, and deceptive path-based brand nesting analysis.</p>
+                </div>
+                <a href="/scanner" class="inline-block text-center py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-all shadow-md shadow-cyan-500/20">Launch Scanner →</a>
+            </div>
+
+            <!-- Tool 2: Document Analyzer -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-slate-300">2) Document Analyzer</span>
+                        <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 text-[10px]">IN DEV</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mb-4">Inspection of malicious PDF attachments, embedded OLE objects, and macro-enabled Office document executables.</p>
+                </div>
+                <a href="/document-scanner" class="inline-block text-center py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-slate-700 font-bold transition-all">View Module</a>
+            </div>
+
+            <!-- Tool 3: SMS Smishing Inspector -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-slate-300">3) SMS / Smishing Inspector</span>
+                        <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 text-[10px]">IN DEV</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mb-4">Natural language processing (NLP) intent classification for carrier text message scam filters and banking fraud alerts.</p>
+                </div>
+                <a href="/sms-scanner" class="inline-block text-center py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-slate-700 font-bold transition-all">View Module</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

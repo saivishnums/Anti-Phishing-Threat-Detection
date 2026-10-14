@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}URL Scanner - Threat Detection Suite{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto mt-8 space-y-6 font-mono">
+    <!-- Header Banner matching other modules -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl space-y-4">
+        <div class="flex items-center justify-between">
+            <div>
+                <div class="inline-block px-3 py-1 rounded bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs mb-2">Active Security Module</div>
+                <h2 class="text-xl font-bold text-slate-100">URL & Domain Engine</h2>
+            </div>
+            <span class="text-2xl">🛡️</span>
+        </div>
+
+        <p class="text-xs text-slate-400 leading-relaxed">
+            Lexical entropy calculation, DGA gibberish detection, Punycode homograph inspection, and deceptive path-based brand nesting analysis.
+        </p>
+
+        <!-- Credential Harvesting Kits & Malicious Redirects Explanations -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 text-xs">
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1.5">
+                <p class="text-cyan-400 font-bold">Credential Harvesting Kits:</p>
+                <p class="text-slate-400 text-[11px] leading-relaxed">
+                    Phishing sites mimic legitimate login pages and may include tracking scripts stolen from real sites to appear authentic.
+                </p>
+            </div>
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1.5">
+                <p class="text-cyan-400 font-bold">Malicious Redirects & Ad Trackers:</p>
+                <p class="text-slate-400 text-[11px] leading-relaxed">
+                    Compromised ad networks use tracking scripts to redirect users to fake phishing landing pages via malvertising.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Scanner Input Form Card -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl space-y-4">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300">Execute URL Threat Analysis</h3>
+        <form method="POST" action="/scanner" class="space-y-4">
+            <div>
+                <label class="block text-xs text-slate-400 mb-2">TARGET URL OR STRING</label>
+                <input type="text" name="url" value="{{ input_val if input_val else '' }}" placeholder="https://example.com/login" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-cyan-500">
+            </div>
+            <button type="submit" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/20">Run Analysis</button>
+        </form>
+    </div>
+
+    <!-- Analysis Telemetry Output -->
+    {% if result %}
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl space-y-4">
+        <div class="flex items-center justify-between">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Analysis Telemetry Output</h3>
+            <span class="px-3 py-1 rounded-full text-xs font-bold border
+                {% if result.risk_score >= 70 %} bg-rose-500/10 text-rose-400 border-rose-500/20
+                {% elif result.risk_score >= 40 %} bg-amber-500/10 text-amber-400 border-amber-500/20
+                {% else %} bg-emerald-500/10 text-emerald-400 border-emerald-500/20 {% endif %}">
+                {{ result.status }} (Risk Score: {{ result.risk_score }}%)
+            </span>
+        </div>
+        <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs space-y-2">
+            <p class="text-slate-400 font-bold">Flagged Indicators:</p>
+            <ul class="list-disc list-inside space-y-1 text-slate-300">
+                {% for detail in result.details %}
+                <li>{{ detail }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Recent Scan Logs Card with Fixed Dynamic Risk Coloring -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl space-y-4">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Your Recent Scan Logs</h3>
+        {% if logs %}
+        <div class="space-y-2 max-h-60 overflow-y-auto text-xs pr-2">
+            {% for target, status, risk, vector, flags in logs %}
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex items-center justify-between">
+                <span class="truncate max-w-md text-slate-300">{{ target }}</span>
+                <span class="px-2.5 py-1 rounded text-[10px] font-bold border
+                    {% if risk >= 70 %} bg-rose-500/10 text-rose-400 border-rose-500/20
+                    {% elif risk >= 40 %} bg-amber-500/10 text-amber-400 border-amber-500/20
+                    {% else %} bg-emerald-500/10 text-emerald-400 border-emerald-500/20 {% endif %}">
+                    {{ risk }}% Risk
+                </span>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-xs text-slate-500">No scan logs recorded yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

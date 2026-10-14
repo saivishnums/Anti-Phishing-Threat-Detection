@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Threat Intelligence Reports - Threat Detection Suite{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto mt-8 space-y-6 font-mono">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl">
+        <div class="flex items-center justify-between mb-2">
+            <span class="px-3 py-1 rounded bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs">Vector Analysis & Telemetry Reports</span>
+        </div>
+        <h2 class="text-xl font-bold text-slate-100">Global Threat Intelligence Reports</h2>
+        <p class="text-xs text-slate-400 mt-1">Aggregated platform telemetry grouped by zero-day attack vector. Select any vector to inspect detailed audit logs.</p>
+    </div>
+    
+    <div class="space-y-4">
+        {% for vector, count in stats %}
+        <a href="/vector-details/{{ vector }}" class="block bg-slate-900 border border-slate-800 hover:border-cyan-500/50 p-6 rounded-2xl shadow-xl transition-all">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-sm font-bold text-slate-200">{{ vector }} ↗</span>
+                <span class="text-xs text-cyan-400 font-bold">{{ count }} global detections</span>
+            </div>
+            <div class="w-full bg-slate-950 h-2.5 rounded-full overflow-hidden border border-slate-800">
+                <div class="bg-cyan-500 h-full rounded-full" style="width: {{ count * 10 }}%;"></div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

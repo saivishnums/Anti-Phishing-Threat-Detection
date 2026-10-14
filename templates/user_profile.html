@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Analyst Profile & User Data - Threat Detection Suite{% endblock %}
+{% block content %}
+<div class="space-y-6 font-mono max-w-3xl mx-auto mt-8">
+    <!-- Analyst Profile Overview -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl space-y-4">
+        <div class="flex items-center justify-between">
+            <span class="px-3 py-1 rounded bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs">User Data & Session Management</span>
+        </div>
+        <h2 class="text-xl font-bold text-slate-100">Analyst Profile: {{ username }}</h2>
+        <p class="text-xs text-slate-400 leading-relaxed">
+            This module manages analyst credentials, session metadata, isolated privacy logs, and individual threat inspection history.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-slate-800 text-xs">
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                <p class="text-slate-400 font-bold">Authentication Username:</p>
+                <p class="text-cyan-400">{{ username }}</p>
+            </div>
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                <p class="text-slate-400 font-bold">Session State:</p>
+                <p class="text-emerald-400">Active (WAL Mode Isolated)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personal Scan Audit Trail -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl space-y-4">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300">Analyst Historical Scan Audit Trail</h3>
+        {% if logs %}
+        <div class="space-y-2 max-h-80 overflow-y-auto text-xs pr-2">
+            {% for target, status, risk, vector, flags in logs %}
+            <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex items-center justify-between">
+                <div class="space-y-1 max-w-md">
+                    <span class="text-slate-200 font-bold break-all">{{ target }}</span>
+                    <p class="text-[10px] text-slate-400">Vector: <span class="text-cyan-400">{{ vector }}</span></p>
+                </div>
+                <span class="px-2.5 py-1 rounded text-[10px] font-bold border shrink-0 ml-4
+                    {% if risk >= 70 %} bg-rose-500/10 text-rose-400 border-rose-500/20
+                    {% elif risk >= 40 %} bg-amber-500/10 text-amber-400 border-amber-500/20
+                    {% else %} bg-emerald-500/10 text-emerald-400 border-emerald-500/20 {% endif %}">
+                    {{ status }} ({{ risk }}%)
+                </span>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-xs text-slate-500">No scan history recorded under this analyst account yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

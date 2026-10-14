@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Analytics - ThreatSuite{% endblock %}
+{% block content %}
+<div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+    <h2 class="text-base font-bold font-mono text-slate-200 mb-1">Global Threat Intelligence & Attack Vectors</h2>
+    <p class="text-xs font-mono text-slate-400 mb-6">Aggregated telemetry across all platform users. Click any vector to inspect detailed logs.</p>
+    
+    <div class="space-y-4 font-mono">
+        {% for vector, count in stats %}
+        <a href="/vector-details/{{ vector }}" class="block bg-slate-950 border border-slate-800 hover:border-cyan-500/50 p-4 rounded-xl transition-all">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-sm font-bold text-slate-200">{{ vector }} ↗</span>
+                <span class="text-xs text-cyan-400 font-bold">{{ count }} global detections</span>
+            </div>
+            <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                <div class="bg-cyan-500 h-full rounded-full" style="width: {{ count * 10 }}%;"></div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

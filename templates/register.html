@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Register - Threat Detection Suite{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto mt-16 bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl">
+    <h2 class="text-xl font-bold font-mono mb-2 text-slate-200">Register Here</h2>
+    <p class="text-xs font-mono text-slate-400 mb-6">Create account</p>
+    {% if error %}
+    <div class="mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-mono">{{ error }}</div>
+    {% endif %}
+    <form method="POST" action="/register" class="space-y-4 font-mono text-xs" autocomplete="off">
+        <div>
+            <label class="block text-slate-400 mb-1">Username</label>
+            <input type="text" name="username" required autocomplete="off" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-cyan-500">
+        </div>
+        <div>
+            <label class="block text-slate-400 mb-1">Email Address</label>
+            <input type="email" name="email" placeholder="analyst@gmail.com" required autocomplete="off" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-cyan-500">
+        </div>
+        <div>
+            <label class="block text-slate-400 mb-1">Password</label>
+            <input type="password" name="password" required autocomplete="new-password" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-cyan-500">
+        </div>
+        <button type="submit" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-all shadow-lg shadow-cyan-500/20">Register Analyst</button>
+    </form>
+    <p class="mt-6 text-center text-xs font-mono text-slate-400">Already registered? <a href="/" class="text-cyan-400 hover:underline">Login here</a></p>
+</div>
+{% endblock %}
